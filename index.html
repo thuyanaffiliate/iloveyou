@@ -163,6 +163,64 @@
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(255, 77, 135, 0.3);
 }
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+    padding: 0;
+  }
+
+  .login-card {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .circle {
+    width: 200px;
+    height: 200px;
+  }
+  .circle .days {
+    font-size: 48px;
+  }
+
+  .counter-box {
+    width: 70px;
+    height: 70px;
+    font-size: 14px;
+  }
+  .counter-box .num {
+    font-size: 20px;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cover {
+    width: 220px;
+    height: 220px;
+  }
+
+  .film-item {
+    width: 160px;
+    height: 100px;
+  }
+
+  .controls {
+    gap: 10px;
+  }
+  .ctl-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+  .play-big {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+  }
+}
 
 </style>
 </head>
@@ -182,7 +240,7 @@
 <div class="center-wrap" id="login-screen">
   <div class="login-card">
     <div class="login-logo"><img src="tim.png" alt="logo"></div>
-    <h2>Nhập Đi Cưng</h2>
+    <h2>Cổng Tình Yêu</h2>
     <input id="username" class="field" placeholder="Tên đăng nhập" autocomplete="off">
     <input id="password" class="field" placeholder="Mật khẩu" type="password">
     <div style="margin-top:14px"><button class="btn" onclick="doLogin()">Vào thôi</button></div>
