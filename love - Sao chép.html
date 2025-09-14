@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<link rel="icon" type="image/x-icon" href="tim.png">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hẹ Hẹ</title>
+<style>
+
+/* Counter */
+#counter {
+  background: #fff;            /* khung trắng */
+  border-radius: 20px;         /* bo góc mềm */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* bóng mờ */
+  padding: 30px;
+  text-align: center;
+}
+
+#counter .circle {
+  background: conic-gradient(from 220deg, rgba(255,77,135,0.12), rgba(255,130,184,0.06));
+  margin-bottom: 20px;
+}
+
+#counter .days {
+  color: #ff4d87;
+}
+
+#counter .avatars {
+  margin-top: 20px;
+}
+
+#counter .avatar {
+  border: 4px solid #ff86b8; /* khung viền hồng */
+}
+
+ .cover {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 12px;
+  background:#ffeaf2;
+  margin-top: 12px;
+  overflow: hidden;
+}
+.progress .bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg,#ff86b8,#ff4d87);
+}
+
+ :root{
+    --bg:#fff4f8;
+    --card:#fff7fb;
+    --accent:#ff4d87;
+    --accent-2:#ff86b8;
+    --muted:#6e3a52;
+    --shadow:0 12px 36px rgba(120,40,80,0.06);
+    --pinkBox:#ff86b8;
+  }
+  *{box-sizing:border-box}
+ body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: linear-gradient(180deg, #ffbfd8 0%, #ffbfd8  50%, #ffbfd8  100%);
+  color: #23121a;
+}
+  a{color:inherit}
+  button{font-family:inherit;cursor:pointer}
+
+  .nav{
+    position:sticky;top:0;z-index:300;display:flex;gap:12px;align-items:center;justify-content:center;
+    padding:12px 16px;background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+    backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,0,120,0.03);
+  }
+  .nav a{padding:8px 14px;border-radius:12px;font-weight:700;color:var(--accent);transition:.18s}
+  .nav a:hover{transform:translateY(-3px);background:rgba(255,255,255,0.95)}
+
+  .center-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+  .login-card{max-width:480px;border-radius:18px;padding:26px;background:var(--card);box-shadow:var(--shadow);text-align:center}
+  .login-logo{width:90px;height:90px;margin:0 auto 12px;border-radius:18px;overflow:hidden}
+  .login-logo img{width:100%;height:100%;object-fit:cover}
+  .field{width:100%;padding:12px 14px;margin-top:12px;border-radius:12px;border:1px solid #ffddec;font-size:15px}
+  .btn{padding:10px 16px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;font-weight:800;box-shadow:0 8px 26px rgba(255,77,135,0.12)}
+  .error{color:#c84b79;margin-top:10px}
+
+  .app{display:none;padding:28px;max-width:1100px;margin:0 auto}
+  .container{display:flex;flex-direction:column;gap:20px}
+
+  .intro{min-height:48vh;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:16px;padding:28px;background:#fff;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  #introText{font-size:28px;color:var(--accent);font-weight:800;border-right:3px solid var(--accent);padding-right:8px;white-space:pre}
+
+  .hearts{position:fixed;inset:0;pointer-events:none;z-index:150;overflow:hidden}
+
+  .circle{width:280px;height:280px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;background:conic-gradient(from 220deg, rgba(255,77,135,0.12), rgba(255,130,184,0.06))}
+  .circle .days{font-size:68px;font-weight:800;color:var(--accent)}
+  .counter-detail{margin-top:10px;color:var(--muted);text-align:center}
+
+  .counter-boxes{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+  .counter-box{width:94px;height:94px;border-radius:14px;background:var(--pinkBox);color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800}
+  .counter-box .num{font-size:28px}
+
+  .avatars{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:18px}
+  .avatar{width:82px;height:82px;border-radius:50%;overflow:hidden;border:6px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,0.12)}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+
+  /* Album */
+  .album{border-radius:14px;padding:16px;background:#fff;box-shadow:var(--shadow)}
+  .film-row{overflow:hidden;border-radius:12px;margin:10px 0;padding:6px 2px}
+  .film-strip{display:inline-flex;gap:12px;align-items:center}
+  .film-item{width:220px;height:140px;flex:0 0 auto;border-radius:12px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,0.08)}
+  .film-item img{width:100%;height:100%;object-fit:cover;display:block}
+.album {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: #111;
+  padding: 20px;
+  border: 10px solid #222;
+  border-radius: 12px;
+}
+
+.album img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  background: #000;
+  border: 4px solid #333;
+  border-radius: 4px;
+}
+  @keyframes scroll-left {0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  @keyframes scroll-right{0%{transform:translateX(-50%);}100%{transform:translateX(0);}}
+
+  .message,.special,.player{border-radius:14px;padding:16px;background:#fff;box-shadow:var(--shadow);text-align:center}
+  .cover{width:300px;height:300px;border-radius:16px;overflow:hidden;margin:0 auto}
+  .cover img{width:100%;height:100%;object-fit:cover}
+  .controls{display:flex;gap:18px;align-items:center;justify-content:center;margin-top:12px}
+  .ctl-btn{width:52px;height:52px;border-radius:12px;background:#fff0f6;border:none;font-size:18px}
+  .play-big{width:76px;height:76px;border-radius:16px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;font-size:24px;border:none}
+  .progress{width:100%;height:10px;border-radius:12px;background:#ffeaf2;margin-top:12px;overflow:hidden}
+  .progress .bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+  .time-row{display:flex;justify-content:space-between;margin-top:6px;color:var(--muted)}
+ 
+.love-date {
+  margin-top: 16px;
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(90deg, #ff4d87, #ff86b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(255, 77, 135, 0.3);
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav" style="display:none">
+  <a onclick="showSection('home')">🏠 Trang chủ</a>
+  <a onclick="showSection('counter')">⏳ Đếm ngày</a>
+  <a onclick="showSection('album')">📸 Album</a>
+  <a onclick="showSection('message')">💌 Lời nhắn</a>
+  <a onclick="showSection('special')">🎉 Ngày đặc biệt</a>
+  <a onclick="showSection('player')">🎶 Nhạc</a>
+</nav>
+
+<!-- LOGIN -->
+<div class="center-wrap" id="login-screen">
+  <div class="login-card">
+    <div class="login-logo"><img src="tim.png" alt="logo"></div>
+    <h2>Cổng Tình Yêu</h2>
+    <input id="username" class="field" placeholder="Tên đăng nhập" autocomplete="off">
+    <input id="password" class="field" placeholder="Mật khẩu" type="password">
+    <div style="margin-top:14px"><button class="btn" onclick="doLogin()">Vào thôi</button></div>
+    <div class="error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="container">
+
+    <!-- HOME -->
+    <section id="home" class="intro" style="display:none">
+      <div><div id="introText"></div></div>
+    </section>
+
+    <!-- COUNTER -->
+    <section id="counter" class="card section-card" style="display:none">
+      <div class="circle"><div><div style="font-size:14px">Đang yêu</div><div class="days" id="totalDays">0</div></div></div>
+      <div class="love-date" id="loveDate"></div>
+      <div class="love-date" id="loveDate"></div>
+
+   <div class="love-date" id="loveDate"></div>
+
+<!-- Bộ chọn ngày & màu -->
+<div style="margin-top:15px; text-align:center;">
+  <label>Ngày yêu: <input type="date" id="loveDatePicker"></label>
+  <label>Chọn màu: <input type="color" id="loveColorPicker"></label>
+</div>
+
+      <div class="counter-detail" id="counterDetail"></div>
+      <div class="counter-boxes" id="counterBoxes"></div>
+      <div class="avatars">
+  <div style="text-align:center">
+    <div class="avatar"><img id="avatarLeft" src=""></div>
+    <div style="margin-top:6px;font-weight:600;color:#ff4d87">ngánh</div>
+  </div>
+  
+  <div style="font-size:28px;color:var(--accent)">❤️</div>
+  
+  <div style="text-align:center">
+    <div class="avatar"><img id="avatarRight" src=""></div>
+    <div style="margin-top:6px;font-weight:600;color:#64c3ff">hhoàng</div>
+  </div>
+</div>
+
+    </section>
+
+    <!-- ALBUM -->
+    <section id="album" class="album section-card" style="display:none">
+      <h3 style="margin:0 0 12px;color:var(--accent)">📸 Album</h3>
+      <div class="film-row"><div class="film-strip" id="strip1"></div></div>
+      <div class="film-row"><div class="film-strip" id="strip2"></div></div>
+      <div class="film-row"><div class="film-strip" id="strip3"></div></div>
+    </section>
+
+    <!-- MESSAGE -->
+    <section id="message" class="message section-card" style="display:none">
+      <h3>💌 Lời nhắn</h3>
+      <div class="message-box" id="loveMessage"><p>Em yêu à, mỗi ngày có em là hạnh phúc nhất.</p></div>
+      <div><button class="btn" onclick="editMessage()">Chỉnh sửa</button></div>
+    </section>
+
+    <!-- SPECIAL -->
+    <section id="special" class="special section-card" style="display:none">
+      <h3>🎉 Ngày đặc biệt</h3>
+      <div style="display:flex;gap:10px;margin-bottom:12px">
+        <input id="specialTitle" placeholder="Tên mốc" style="flex:1;padding:10px;border-radius:10px;border:1px solid #ffddec">
+        <input id="specialDate" type="date" style="padding:10px;border-radius:10px;border:1px solid #ffddec">
+        <button class="btn" onclick="addSpecial()">Thêm</button>
+      </div>
+      <div class="special-list" id="specialList"></div>
+    </section>
+
+    <!-- PLAYER -->
+    <section id="player" class="player section-card" style="display:none">
+      <h3>🎶 Nhạc</h3>
+      <div class="cover"><img id="coverImg" src="" alt="cover"></div>
+      <div id="songTitle">—</div>
+      <div id="songArtist">—</div>
+      <div class="controls">
+        <button class="ctl-btn" onclick="prevTrack()">⏮</button>
+        <button class="play-big" id="playBtn" onclick="togglePlay()">▶</button>
+        <button class="ctl-btn" onclick="nextTrack()">⏭</button>
+      </div>
+      <div class="progress" id="progress" onclick="seek(event)">
+        <div class="bar" id="progressFill"></div>
+      </div>
+      <div class="time-row"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+      <audio id="audioEl" preload="metadata"></audio>
+    </section>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+
+<script>
+// --- Điều khiển Player bằng bàn phím ---
+document.addEventListener('keydown', (e)=>{
+  const tag = document.activeElement.tagName.toLowerCase();
+  if(tag === 'input' || tag === 'textarea') return; // tránh khi đang gõ chữ
+
+  if(e.code === 'Space'){ 
+    e.preventDefault(); // không cuộn trang
+    togglePlay(); 
+  }
+  if(e.code === 'Enter'){ 
+    nextTrack(); 
+  }
+  if(e.code === 'ArrowRight'){ 
+    if(audio) audio.currentTime = Math.min((audio.currentTime||0) + 5, audio.duration || audio.currentTime); 
+  }
+  if(e.code === 'ArrowLeft'){ 
+    if(audio) audio.currentTime = Math.max((audio.currentTime||0) - 5, 0); 
+  }
+  if(e.code === 'ArrowUp'){ 
+    if(audio) audio.volume = Math.min(1, (audio.volume||1) + 0.05); 
+  }
+  if(e.code === 'ArrowDown'){ 
+    if(audio) audio.volume = Math.max(0, (audio.volume||1) - 0.05); 
+  }
+});
+//Đổi mật khẩu
+const correctUsername = 'hoàngánh';
+const correctPassword = '050424';
+const startDate = new Date(2024,3,5);
+
+const demoImages = [
+  "hi.png",
+  "haha.png",
+  "an.png",
+  "kk.png",
+  "đt.png"
+];
+
+function doLogin(){
+  const u = document.getElementById('username').value.trim();
+  const p = document.getElementById('password').value.trim();
+  const err = document.getElementById('login-error');
+  err.textContent = '';
+  if(u === correctUsername && p === correctPassword){
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('nav').style.display = 'flex';
+    initApp();
+  } else err.textContent = 'Sai tài khoản hoặc mật khẩu';
+}
+
+function showSection(id){
+  document.querySelectorAll('.section-card, .intro').forEach(el=>el.style.display='none');
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(id==='home') el.style.display='flex'; else el.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function typeIntro(text,speed=70){
+  const el=document.getElementById('introText'); el.textContent=''; el.style.borderRight='3px solid var(--accent)';
+  let i=0; (function tick(){ if(i<text.length){el.textContent+=text.charAt(i);i++;setTimeout(tick,speed);} else {setTimeout(()=>el.style.borderRight='none',700);} })();
+}
+
+function startHearts(){
+  const c=document.getElementById('hearts');
+  setInterval(()=>{
+    const h=document.createElement('div');
+    h.textContent='❤';
+    h.style.position='absolute';h.style.left=(Math.random()*100)+'vw';h.style.top='-5vh';
+    h.style.fontSize=(10+Math.random()*28)+'px';
+    h.style.opacity=String(0.35+Math.random()*0.65);
+    h.style.transition='transform 8s linear, opacity 2s linear';
+    c.appendChild(h);
+    requestAnimationFrame(()=>{h.style.transform=`translateY(110vh)`;h.style.opacity='0';});
+    setTimeout(()=>h.remove(),10000);
+  },400);
+}
+
+function updateCounter(){
+  const now = new Date();
+  let diffDays = Math.floor((now - startDate) / (1000*60*60*24));
+  totalDays.textContent = diffDays >= 0 ? diffDays : 0;
+
+  // Tính năm, tháng, tuần, ngày
+  let years = Math.floor(diffDays / 365);
+  let months = Math.floor((diffDays % 365) / 30);
+  let weeks = Math.floor(((diffDays % 365) % 30) / 7);
+  let days = ((diffDays % 365) % 30) % 7;
+
+  // Hiển thị
+  const boxes = document.getElementById("counterBoxes");
+  boxes.innerHTML = `
+    <div class="counter-box"><div class="num">${years}</div><div>Years</div></div>
+    <div class="counter-box"><div class="num">${months}</div><div>Month</div></div>
+    <div class="counter-box"><div class="num">${weeks}</div><div>Week</div></div>
+    <div class="counter-box"><div class="num">${days}</div><div>Day</div></div>
+  `;
+}
+function updateCounter(){
+  const now = new Date();
+  let diffDays = Math.floor((now - startDate) / (1000*60*60*24));
+  totalDays.textContent = diffDays >= 0 ? diffDays : 0;
+
+  // Tính năm, tháng, tuần, ngày
+  let years = Math.floor(diffDays / 365);
+  let months = Math.floor((diffDays % 365) / 30);
+  let weeks = Math.floor(((diffDays % 365) % 30) / 7);
+  let days = ((diffDays % 365) % 30) % 7;
+
+  // Hiển thị
+  const boxes = document.getElementById("counterBoxes");
+  boxes.innerHTML = `
+    <div class="counter-box"><div class="num">${years}</div><div>Years</div></div>
+    <div class="counter-box"><div class="num">${months}</div><div>Month</div></div>
+    <div class="counter-box"><div class="num">${weeks}</div><div>Week</div></div>
+    <div class="counter-box"><div class="num">${days}</div><div>Day</div></div>
+  `;
+
+  avatarLeft.src = "VUAPHALUOI1.png";
+  avatarRight.src = "VUAPHALUOI2.png";
+}
+
+// 🔥 tự động cập nhật lại mỗi phút
+setInterval(updateCounter, 60000);
+
+
+/* Album chạy vô hạn */
+function buildFilmStrips(){
+  const strips=[
+    {id:'strip1',anim:'scroll-left 30s linear infinite'},
+    {id:'strip2',anim:'scroll-right 30s linear infinite'},
+    {id:'strip3',anim:'scroll-left 30s linear infinite'}
+  ];
+  strips.forEach(cfg=>{
+    const strip=document.getElementById(cfg.id);
+    strip.innerHTML='';
+    demoImages.forEach(src=>{
+      const it=document.createElement('div');it.className='film-item';
+      const img=document.createElement('img');img.src=src;
+      it.appendChild(img);strip.appendChild(it);
+    });
+    demoImages.forEach(src=>{
+      const it=document.createElement('div');it.className='film-item';
+      const img=document.createElement('img');img.src=src;
+      it.appendChild(img);strip.appendChild(it);
+    });
+    strip.style.animation=cfg.anim;
+  });
+}
+
+/* Player đơn giản */
+let audio = null;
+let currentTrack = 0;
+
+// 👉 Ở đây bạn thêm bài hát + ảnh bìa của bạn
+const playlist = [
+  {
+    src: "yeu.mp3",          // file nhạc
+    title: "Yêu",            // tên bài hát
+    cover: "xe.png"      // ảnh bìa
+  },
+  {
+    src: "song2.mp3",
+    title: "Bài hát 2",
+    cover: "cover2.jpg"
+  },
+  {
+    src: "song3.mp3",
+    title: "Bài hát 3",
+    cover: "cover3.png"
+  }
+];
+
+function initPlayer(){
+  audio = document.getElementById('audioEl');
+  if (playlist.length) loadTrack(0);
+  audio.addEventListener('timeupdate', () => {
+    const bar = document.getElementById('progressFill');
+    if (audio.duration) {
+      bar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+    }
+  });
+}
+
+function loadTrack(i){
+  currentTrack = (i + playlist.length) % playlist.length;
+  const t = playlist[currentTrack];
+  audio.src = t.src;
+
+  // cập nhật giao diện
+  document.getElementById('coverImg').src = t.cover;
+  document.getElementById('songTitle').textContent = t.title;
+
+  audio.load();
+  audio.play().catch(()=>{});
+}
+function loadTrack(i){
+  currentTrack=(i+playlist.length)%playlist.length;
+  const t=playlist[currentTrack];
+  audio.src=t.src;
+  document.getElementById('coverImg').src=t.cover;
+  document.getElementById('songTitle').textContent=t.title;
+  audio.play().catch(()=>{});
+  document.getElementById('playBtn').textContent='❚❚';
+}
+function togglePlay(){if(!audio)return;if(audio.paused){audio.play();document.getElementById('playBtn').textContent='❚❚';}else{audio.pause();document.getElementById('playBtn').textContent='▶';}}
+function prevTrack(){loadTrack(currentTrack-1);}
+function nextTrack(){loadTrack(currentTrack+1);}
+function seek(e){if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();const x=e.clientX-r.left;audio.currentTime=(x/r.width)*audio.duration;}
+
+function editMessage(){
+  const cur=document.getElementById('loveMessage').querySelector('p').textContent;
+  const nxt=prompt('Chỉnh lời nhắn',cur);
+  if(nxt!==null) document.getElementById('loveMessage').querySelector('p').textContent=nxt;
+}
+
+function addSpecial(){
+  const name=document.getElementById('specialTitle').value.trim();
+  const date=document.getElementById('specialDate').value;
+  if(!name||!date)return;
+  const div=document.createElement('div');
+  div.textContent=`${name} - ${date}`;
+  document.getElementById('specialList').appendChild(div);
+  document.getElementById('specialTitle').value='';
+  document.getElementById('specialDate').value='';
+}
+
+function initApp(){
+  typeIntro("Chào mừng đến thế giới của chúng ta 💖",60);
+  startHearts();
+  updateCounter();
+  buildFilmStrips();
+  initPlayer();
+  showSection('home');
+}
+function addSpecial(){
+  const n = specialTitle.value.trim(),
+        d = specialDate.value;
+  if(!n || !d) return;
+
+  // Lấy danh sách cũ trong localStorage
+  let specials = JSON.parse(localStorage.getItem("specialDays") || "[]");
+
+  // Thêm ngày mới
+  specials.push({title: n, date: d});
+
+  // Lưu lại vào localStorage
+  localStorage.setItem("specialDays", JSON.stringify(specials));
+
+  // Cập nhật hiển thị
+  renderSpecials();
+
+  // Reset input
+  specialTitle.value = '';
+  specialDate.value = '';
+}
+
+// Hàm hiển thị lại danh sách
+function renderSpecials(){
+  specialList.innerHTML = "";
+  let specials = JSON.parse(localStorage.getItem("specialDays") || "[]");
+
+  specials.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.justifyContent = "space-between";
+    div.style.alignItems = "center";
+    div.style.padding = "6px 0";
+
+    const span = document.createElement("span");
+    span.textContent = `${item.title} - ${item.date}`;
+
+    // Nút xóa
+    const btn = document.createElement("button");
+    btn.textContent = "🗑";
+    btn.style.background = "transparent";
+    btn.style.border = "none";
+    btn.style.cursor = "pointer";
+    btn.style.fontSize = "16px";
+    btn.onclick = () => {
+      deleteSpecial(index);
+    };
+
+    div.appendChild(span);
+    div.appendChild(btn);
+    specialList.appendChild(div);
+  });
+}
+
+// Hàm xóa 1 ngày đặc biệt
+function deleteSpecial(index){
+  let specials = JSON.parse(localStorage.getItem("specialDays") || "[]");
+  specials.splice(index, 1); // xóa phần tử
+  localStorage.setItem("specialDays", JSON.stringify(specials));
+  renderSpecials();
+}
+function typeIntro(txt, speed = 100, pause = 1500) {
+  const el = document.getElementById("introText");
+  let i = 0;
+  let deleting = false;
+
+  function run() {
+    if (!deleting) {
+      // Gõ chữ
+      if (i < txt.length) {
+        el.textContent = txt.substring(0, i + 1);
+        i++;
+        setTimeout(run, speed);
+      } else {
+        // Dừng 1 lúc rồi bắt đầu xóa
+        deleting = true;
+        setTimeout(run, pause);
+      }
+    } else {
+      // Xóa chữ
+      if (i > 0) {
+        el.textContent = txt.substring(0, i - 1);
+        i--;
+        setTimeout(run, speed / 2);
+      } else {
+        // Dừng 1 lúc rồi gõ lại
+        deleting = false;
+        setTimeout(run, pause);
+      }
+    }
+  }
+  // Hiển thị ngày yêu
+const loveDateEl = document.getElementById("loveDate");
+if(loveDateEl){
+  const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  loveDateEl.textContent = "Ngày yêu: " + startDate.toLocaleDateString('vi-VN', options);
+}
+
+  run();
+}
+renderSpecials();
+// --- Lưu & hiển thị ngày yêu ---
+function initLoveSettings(){
+  const datePicker = document.getElementById("loveDatePicker");
+  const colorPicker = document.getElementById("loveColorPicker");
+
+  // Lấy dữ liệu đã lưu
+  let savedDate = localStorage.getItem("loveDate");
+  let savedColor = localStorage.getItem("loveColor");
+
+  // Nếu chưa có thì mặc định 05/04/2024
+  if(!savedDate) savedDate = "2024-04-05";
+  if(!savedColor) savedColor = "#ff4d87";
+
+  // Gán vào input
+  datePicker.value = savedDate;
+  colorPicker.value = savedColor;
+
+  // Gán vào biến startDate toàn cục
+  window.startDate = new Date(savedDate);
+
+  // Hiển thị ban đầu
+  updateCounter();
+  updateLoveDate(savedDate, savedColor);
+
+  // Khi thay đổi ngày
+  datePicker.addEventListener("change", ()=>{
+    localStorage.setItem("loveDate", datePicker.value);
+    window.startDate = new Date(datePicker.value); // cập nhật biến gốc
+    updateCounter(); // cập nhật toàn bộ đếm ngày
+    updateLoveDate(datePicker.value, colorPicker.value);
+  });
+
+  // Khi thay đổi màu
+  colorPicker.addEventListener("input", ()=>{
+    localStorage.setItem("loveColor", colorPicker.value);
+    updateLoveDate(datePicker.value, colorPicker.value);
+  });
+}
+
+// Hàm cập nhật dòng ngày yêu
+function updateLoveDate(dateStr, color){
+  const loveDateEl = document.getElementById("loveDate");
+  if(loveDateEl){
+    const d = new Date(dateStr);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    loveDateEl.textContent = "Ngày yêu: " + d.toLocaleDateString('vi-VN', options);
+    loveDateEl.style.color = color;
+    loveDateEl.style.background = "none";
+    loveDateEl.style.webkitTextFillColor = color;
+  }
+ }
+initLoveSettings();
+function updateCounter(){
+  const now = new Date();
+  let diffDays = Math.floor((now - startDate) / (1000*60*60*24));
+  totalDays.textContent = diffDays >= 0 ? diffDays : 0;
+
+  // Tính năm, tháng, tuần, ngày
+  let years = Math.floor(diffDays / 365);
+  let months = Math.floor((diffDays % 365) / 30);
+  let weeks = Math.floor(((diffDays % 365) % 30) / 7);
+  let days = ((diffDays % 365) % 30) % 7;
+
+  // Hiển thị
+  const boxes = document.getElementById("counterBoxes");
+  boxes.innerHTML = `
+    <div class="counter-box"><div class="num">${years}</div><div>Years</div></div>
+    <div class="counter-box"><div class="num">${months}</div><div>Month</div></div>
+    <div class="counter-box"><div class="num">${weeks}</div><div>Week</div></div>
+    <div class="counter-box"><div class="num">${days}</div><div>Day</div></div>
+  `;
+
+  // Avatar mới
+  avatarLeft.src = "ánh.png";     // ảnh bạn nữ
+  avatarRight.src = "hoang.png";  // ảnh bạn nam
+}
+
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('username').focus();});
+</script>
+</body>
+</html>
